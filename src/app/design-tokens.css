@@ -1,0 +1,48 @@
+:root {
+  /* ===========================
+     COLORS
+  =========================== */
+
+  --bg: #080A0C;
+  --surface: #111418;
+  --surface-2: #171B20;
+
+  --text: #FFFFFF;
+  --muted: #A5AFBA;
+
+  --primary: #16C47F;
+  --primary-hover: #12AE70;
+
+  --gold: #D4AF37;
+
+  --border: rgba(255,255,255,.08);
+
+  --success: #22C55E;
+  --danger: #EF4444;
+
+  /* ===========================
+     RADIUS
+  =========================== */
+
+  --radius-sm: 16px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+
+  /* ===========================
+     SHADOWS
+  =========================== */
+
+  --shadow-card:
+    0 20px 80px rgba(0,0,0,.35);
+
+  --shadow-soft:
+    0 10px 40px rgba(0,0,0,.25);
+
+  /* ===========================
+     TRANSITIONS
+  =========================== */
+
+  --transition:
+    all .35s cubic-bezier(.4,0,.2,1);
+}
