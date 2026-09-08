@@ -13,7 +13,7 @@ export default function HeroContent() {
 
       {/* Heading */}
 
-      <h1 className="text-[64px] font-black leading-[0.9] tracking-[-0.06em] text-white md:text-[82px] xl:text-[96px]">
+      <h1 className="text-[44px] font-black leading-[0.9] tracking-[-0.06em] text-white sm:text-[56px] md:text-[64px] lg:text-[82px] xl:text-[96px]">
 
         <span className="block">
           Your Circle.
@@ -46,7 +46,7 @@ export default function HeroContent() {
 
       {/* Buttons */}
 
-      <div className="mt-8 flex gap-4">
+      <div className="mt-8 flex flex-wrap gap-4">
 
         <Button className="h-14 rounded-2xl px-8 text-base">
 
@@ -72,7 +72,7 @@ export default function HeroContent() {
 
       {/* Features */}
 
-      <div className="mt-8 grid grid-cols-3 gap-4">
+      <div className="mt-8 grid grid-cols-3 gap-3 xs:gap-4">
 
         <Feature
           icon={<ShieldCheck size={18} />}
@@ -123,7 +123,7 @@ function Feature({
   title,
 }: FeatureProps) {
   return (
-    <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4 transition duration-300 hover:border-[#16C47F]/40 hover:-translate-y-1">
+    <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-3 sm:p-4 transition duration-300 hover:border-[#16C47F]/40 hover:-translate-y-1">
 
       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#16C47F]/15 text-[#16C47F]">
 

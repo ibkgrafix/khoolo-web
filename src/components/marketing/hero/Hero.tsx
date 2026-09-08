@@ -131,21 +131,21 @@ export default function Hero() {
 
             {/* Dashboard */}
 
-            <div
-              className="
-                relative
-                z-20
-                origin-center
-                scale-[0.58]
-                sm:scale-[0.72]
-                md:scale-[0.84]
-                lg:origin-right
-                lg:scale-[0.82]
-                xl:scale-[0.92]
-                2xl:scale-100
-              "
-            >
-              <DashboardMockup />
+            <div className="relative z-20 w-full overflow-hidden lg:w-auto lg:overflow-visible">
+              <div
+                className="
+                  origin-center
+                  scale-[0.58]
+                  sm:scale-[0.72]
+                  md:scale-[0.84]
+                  lg:origin-right
+                  lg:scale-[0.82]
+                  xl:scale-[0.92]
+                  2xl:scale-100
+                "
+              >
+                <DashboardMockup />
+              </div>
             </div>
 
             {/* Floating members — kept directly inside original parent */}

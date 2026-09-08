@@ -6,7 +6,6 @@
 ========================================================== */
 
 @theme inline {
-
   --color-background: var(--bg);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
@@ -27,7 +26,6 @@
 ========================================================== */
 
 @layer base {
-
   * {
     border-color: var(--border);
   }
@@ -48,7 +46,6 @@
     background: var(--primary);
     color: white;
   }
-
 }
 
 /* ==========================================================
@@ -56,7 +53,6 @@
 ========================================================== */
 
 @keyframes phoneFloat {
-
   0% {
     transform: translateY(0);
   }
@@ -68,11 +64,9 @@
   100% {
     transform: translateY(0);
   }
-
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0);
@@ -81,41 +75,25 @@
   50% {
     transform: translateY(-8px);
   }
-
 }
 
+/* ==========================================================
+   Animation Classes
+========================================================== */
+
 .animate-phone {
-
   animation: phoneFloat 6s ease-in-out infinite;
-
 }
 
 .animate-float {
-
   animation: float 5s ease-in-out infinite;
-
 }
 
 .animate-float-delay {
-
   animation: float 6s ease-in-out infinite;
   animation-delay: 1.5s;
-
 }
 
 .animate-float-slow {
-
   animation: float 7s ease-in-out infinite;
-  
-  @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
 }
