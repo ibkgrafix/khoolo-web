@@ -74,7 +74,7 @@ export default function Security() {
         <div className="absolute left-[14%] top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full border border-[#16C47F]/10" />
       </div>
 
-      <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-5 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:px-8">
+      <div className="relative mx-auto grid max-w-[1280px] items-center gap-8 px-5 sm:gap-10 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:px-8">
         {/* Left Security Preview */}
         <div className="relative order-2 lg:order-1">
           <div className="absolute -inset-8 rounded-[48px] bg-[#16C47F]/10 blur-[80px]" />

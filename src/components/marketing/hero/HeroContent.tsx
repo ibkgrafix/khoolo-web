@@ -3,27 +3,35 @@ import { Badge, Button } from "@/components/ui";
 
 export default function HeroContent() {
   return (
-    <div className="relative z-10 w-full max-w-[590px]">
+    /*
+      ROOT CAUSE FIX — mobile alignment:
+      On mobile the hero is a single-column layout. The design intent
+      (per the spec) is a centered vertical composition on mobile.
+      Previously there was no text-center for mobile — everything
+      defaulted to left-aligned, matching the desktop two-column layout.
 
-      {/* Badge */}
+      Fix: text-center on mobile, lg:text-left on desktop.
+      This single rule centers the heading, paragraph, and badge
+      through CSS text-align inheritance without touching each child.
+
+      Buttons, feature cards, and the trust row each get mx-auto
+      (or justify-center) on mobile so they center within the content
+      box without needing individual element overrides.
+    */
+    <div className="relative z-10 w-full max-w-[590px] text-center lg:text-left">
+
+      {/* Badge — centers via inline-flex + text-center parent */}
       <Badge className="mb-5 px-4 py-1.5 text-[11px] font-medium">
         Trusted Digital Contribution Platform
       </Badge>
 
       {/*
-        Heading — root cause fix for mobile overflow.
-
-        "Your Circle." at Inter Black 52px is ~350–380px wide, which overflows
-        a 320px (272px available) or 375px (327px available) container.
-
-        Fix: start at 46px where "Your Circle." safely fits in 272px+.
-        At sm (640px) the container is wide enough for 56px, and so on up.
-
-        46px is still bold and commanding — this is the hero hook.
-        We scale aggressively upward on larger screens to preserve
-        the original desktop visual punch.
+        Heading.
+        text-[46px] at mobile safely fits "Your Circle." in 272px+
+        containers (320px viewport − 48px padding = 272px available).
+        Scales up aggressively for desktop impact.
       */}
-      <h1 className="text-[46px] font-black leading-[0.92] tracking-[-0.04em] text-white sm:text-[58px] md:text-[72px] lg:text-[82px] xl:text-[96px]">
+      <h1 className="mt-1 text-[46px] font-black leading-[0.92] tracking-[-0.04em] text-white sm:text-[58px] md:text-[72px] lg:text-[82px] xl:text-[96px]">
         <span className="block">Your Circle.</span>
         <span className="block">
           Your{" "}
@@ -34,29 +42,28 @@ export default function HeroContent() {
       </h1>
 
       {/*
-        Description — clearly subordinate to the heading.
-        w-full ensures it fills its 327px container and wraps naturally.
-        max-w-[470px] is a desktop ceiling only — never active on mobile.
-        No white-space:nowrap anywhere, text wraps freely.
+        Description.
+        w-full + max-w-[470px] mx-auto on mobile centers the text block
+        and prevents it from stretching edge-to-edge on wider mobiles.
+        lg:mx-0 restores left-alignment on desktop.
       */}
-      <p className="mt-5 w-full max-w-[470px] text-[15px] leading-[1.7] text-[#A7B1BC] sm:text-base sm:leading-8">
+      <p className="mx-auto mt-5 w-full max-w-[470px] text-[15px] leading-[1.7] text-[#A7B1BC] sm:text-base sm:leading-8 lg:mx-0">
         Build trusted contribution circles, save towards life&apos;s biggest
         goals, and grow wealth together with people you trust.
       </p>
 
       {/*
         CTA Buttons.
-
-        Root cause: Button base class has hardcoded px-8 which takes
-        precedence over a plain px-6 override in Tailwind v4 (stylesheet
-        order, not HTML order). Using !important variants (! prefix) to
-        ensure the mobile overrides are actually applied.
-
-        w-full on mobile gives each button the full container width.
-        flex-col stacks them cleanly. At sm+ they sit side by side.
+        flex-col on mobile stacks them cleanly. mx-auto centers the
+        column. sm:flex-row at sm+ restores side-by-side layout.
+        !important overrides are needed because Button's base class
+        has hardcoded px-8/h-14; in Tailwind v4 stylesheet-order
+        specificity means plain overrides lose to the base class.
       */}
-      <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4">
-        <Button className="!h-12 !w-full !rounded-2xl !px-6 !text-[15px] sm:!h-14 sm:!w-auto sm:!px-8 sm:!text-base">
+      <div className="mx-auto mt-7 flex w-full flex-col gap-3 sm:mx-0 sm:flex-row sm:gap-4 lg:mx-0">
+        <Button
+          className="!h-12 !w-full !rounded-2xl !px-6 !text-[15px] sm:!h-14 sm:!w-auto sm:!px-8 sm:!text-base"
+        >
           Start Saving
         </Button>
         <Button
@@ -70,11 +77,12 @@ export default function HeroContent() {
 
       {/*
         Feature cards — 3-column grid.
-        At the narrowest viewport (320px → 272px container):
-          each column = (272px - 2×12px gap) / 3 = ~83px per card.
-        Cards are compact with p-3 and small icons. They fit.
+        mx-auto centers the grid on mobile.
+        At 320px (272px available): (272 − 2×12) / 3 = 83px per card — fits.
+        At 375px (327px available): (327 − 2×12) / 3 = 101px per card — fits.
+        lg:mx-0 restores left-alignment on desktop.
       */}
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <div className="mx-auto mt-6 grid w-full grid-cols-3 gap-3 lg:mx-0">
         <Feature icon={<ShieldCheck size={16} />} title="Secure" />
         <Feature icon={<Users size={16} />} title="Trusted" />
         <Feature icon={<Target size={16} />} title="Goals" />
@@ -82,17 +90,11 @@ export default function HeroContent() {
 
       {/*
         Trust / rating row.
-
-        Root cause: flex row with long text and no wrapping. The text has
-        an implicit min-content width that prevents it from shrinking.
-
-        Fix:
-        - flex-wrap so the text can drop to a second line if needed.
-        - min-w-0 on the <p> overrides the default flex min-content sizing,
-          allowing it to shrink below its intrinsic content width.
-        - shrink-0 on stars so they never get compressed.
+        justify-center on mobile. flex-wrap + min-w-0 + shrink on the
+        text element prevent the row from exceeding the container.
+        lg:justify-start restores left-alignment on desktop.
       */}
-      <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 lg:justify-start">
         <span className="shrink-0 text-[#D4AF37] tracking-wide">★★★★★</span>
         <p className="min-w-0 shrink text-[13px] text-[#8F99A6] sm:text-sm">
           Trusted by thousands building wealth together.
@@ -111,7 +113,7 @@ interface FeatureProps {
 function Feature({ icon, title }: FeatureProps) {
   return (
     <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-3 transition duration-300 hover:border-[#16C47F]/40 hover:-translate-y-1 sm:p-4">
-      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#16C47F]/15 text-[#16C47F] sm:h-10 sm:w-10">
+      <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-xl bg-[#16C47F]/15 text-[#16C47F] sm:h-10 sm:w-10 lg:mx-0">
         {icon}
       </div>
       <h3 className="mt-3 text-[13px] font-semibold text-white sm:mt-4 sm:text-sm">
