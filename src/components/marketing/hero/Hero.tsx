@@ -16,12 +16,13 @@ export default function Hero() {
             grid
             min-h-[calc(100svh-68px)]
             items-center
-            gap-12
-            pb-16
-            pt-14
+            gap-8
+            pb-14
+            pt-12
+            sm:gap-10
             sm:min-h-[calc(100svh-72px)]
-            sm:pb-20
-            sm:pt-16
+            sm:pb-16
+            sm:pt-14
             lg:min-h-[calc(100svh-72px)]
             lg:grid-cols-[1fr_1.08fr]
             lg:gap-6
@@ -30,49 +31,48 @@ export default function Hero() {
             xl:gap-8
           "
         >
-          {/* Left content */}
-
+          {/* Left — hero text content */}
           <div className="relative z-20 mx-auto w-full max-w-[620px] lg:mx-0 lg:-mt-8">
             <HeroContent />
           </div>
 
-          {/* Right visual */}
-
+          {/* Right — dashboard visual
+              On mobile/tablet this is a plain block that sizes itself to its
+              content — no fixed height, no flex centering that creates dead
+              vertical space. The dashboard scales down to fit.
+              On lg+ it becomes a flex panel with height/justify-end restored
+              for the original desktop two-column layout.
+          */}
           <div
             className="
               relative
               mx-auto
-              flex
-              h-[430px]
               w-full
-              max-w-[700px]
-              items-center
-              justify-center
-              sm:h-[540px]
-              md:h-[600px]
+              max-w-[500px]
+              lg:flex
               lg:h-[610px]
               lg:max-w-none
+              lg:items-center
               lg:justify-end
               xl:h-[660px]
             "
           >
-            {/* Main glow */}
-
+            {/* Decorative glow — pointer-events-none, safe to overflow section */}
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[380px]
-                w-[380px]
+                h-[320px]
+                w-[320px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 bg-[#16C47F]/10
                 blur-[95px]
-                sm:h-[520px]
-                sm:w-[520px]
+                sm:h-[460px]
+                sm:w-[460px]
                 sm:blur-[120px]
                 lg:left-[54%]
                 lg:h-[620px]
@@ -84,21 +84,20 @@ export default function Hero() {
             />
 
             {/* Orbit rings */}
-
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[350px]
-                w-[350px]
+                h-[290px]
+                w-[290px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 border border-white/[0.05]
-                sm:h-[480px]
-                sm:w-[480px]
+                sm:h-[420px]
+                sm:w-[420px]
                 lg:left-[54%]
                 lg:h-[560px]
                 lg:w-[560px]
@@ -106,21 +105,20 @@ export default function Hero() {
                 xl:w-[650px]
               "
             />
-
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[270px]
-                w-[270px]
+                h-[220px]
+                w-[220px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 border border-[#16C47F]/10
-                sm:h-[370px]
-                sm:w-[370px]
+                sm:h-[330px]
+                sm:w-[330px]
                 lg:left-[54%]
                 lg:h-[440px]
                 lg:w-[440px]
@@ -129,24 +127,19 @@ export default function Hero() {
               "
             />
 
-            {/* Dashboard
-                Root cause: DashboardMockup has a fixed 620×420px layout
-                designed for desktop. CSS scale() does not reduce the layout
-                box — only the visual output. So the 620px box bleeds outside
-                the right panel on mobile.
+            {/* Dashboard mockup
+                Two-level scale wrapper pattern:
+                - Outer sets the layout box = visual (scaled) size so the
+                  620px mockup never contributes to document scroll width.
+                  overflow-hidden clips only the mathematical bleed of the
+                  scale transform — not design content.
+                - Inner carries the scale transform and origin only.
 
-                Fix (two-level wrapper):
-                - Outer div: layout dimensions = scaled visual output size
-                  (620×scale, 420×scale). overflow-hidden contains any residual
-                  bleed. mx-auto centres it in the flex panel.
-                - Inner div: carries the scale transform and origin only.
-                  Its layout box (620px) overflows the outer but is clipped
-                  by outer's overflow-hidden — after the scale the visual
-                  fits exactly within the outer dimensions.
-
-                On lg+ the outer reverts to w-auto/h-auto/overflow-visible
-                and the inner uses origin-right for the desktop right-aligned
-                layout. No desktop behaviour is changed.
+                Breakpoint sizes  (620 × scale, 420 × scale):
+                  default : 0.58 → 360 × 244
+                  sm 640  : 0.72 → 447 × 302
+                  md 768  : 0.84 → 521 × 353
+                  lg 1024 : desktop layout restored (w-auto, h-auto)
             */}
             <div
               className="
@@ -182,14 +175,12 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Floating members — only shown sm+ */}
-
+            {/* Floating member avatars — sm+ only */}
             <div className="hidden sm:block">
               <FloatingAvatars />
             </div>
 
-            {/* Contribution card — only shown lg+ */}
-
+            {/* Contribution card — lg+ only */}
             <div
               className="
                 absolute
