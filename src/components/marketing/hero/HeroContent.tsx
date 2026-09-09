@@ -3,7 +3,12 @@ import { Badge, Button } from "@/components/ui";
 
 export default function HeroContent() {
   return (
-    <div className="relative z-10 max-w-[590px]">
+    /*
+      Root content div.
+      w-full ensures it fills its parent (the max-w-[620px] grid cell).
+      max-w-[590px] remains as the desktop ceiling.
+    */
+    <div className="relative z-10 w-full max-w-[590px]">
 
       {/* Badge */}
 
@@ -11,7 +16,7 @@ export default function HeroContent() {
         Trusted Digital Contribution Platform
       </Badge>
 
-      {/* Heading */}
+      {/* Heading — graduated scale so it never exceeds container width */}
 
       <h1 className="text-[44px] font-black leading-[0.9] tracking-[-0.06em] text-white sm:text-[56px] md:text-[64px] lg:text-[82px] xl:text-[96px]">
 
@@ -33,9 +38,13 @@ export default function HeroContent() {
 
       </h1>
 
-      {/* Description */}
+      {/* Description
+          w-full ensures the paragraph fills the container and wraps naturally.
+          max-w-[470px] remains as desktop ceiling.
+          No white-space: nowrap is present so text wraps freely.
+      */}
 
-      <p className="mt-6 max-w-[470px] text-lg leading-8 text-[#A7B1BC]">
+      <p className="mt-6 w-full max-w-[470px] text-lg leading-8 text-[#A7B1BC]">
 
         Build trusted contribution circles,
         save towards life's biggest goals,
@@ -44,11 +53,15 @@ export default function HeroContent() {
 
       </p>
 
-      {/* Buttons */}
+      {/* Buttons
+          flex-wrap allows them to stack on narrow screens.
+          Each button uses w-full on mobile so it occupies the full row
+          and auto/fit on sm+ so they sit side-by-side where space allows.
+      */}
 
-      <div className="mt-8 flex flex-wrap gap-4">
+      <div className="mt-8 flex flex-wrap gap-3">
 
-        <Button className="h-14 rounded-2xl px-8 text-base">
+        <Button className="h-12 w-full rounded-2xl px-6 text-sm sm:h-14 sm:w-auto sm:px-8 sm:text-base">
 
           Start Saving
 
@@ -56,7 +69,7 @@ export default function HeroContent() {
 
         <Button
           variant="secondary"
-          className="group h-14 rounded-2xl px-8 text-base"
+          className="group h-12 w-full rounded-2xl px-6 text-sm sm:h-14 sm:w-auto sm:px-8 sm:text-base"
         >
 
           Create Circle
@@ -70,38 +83,45 @@ export default function HeroContent() {
 
       </div>
 
-      {/* Features */}
+      {/* Feature cards — 3-column grid.
+          gap-3 keeps them tight on narrow screens.
+          Padding reduced on mobile so the 3 cards fit.
+      */}
 
-      <div className="mt-8 grid grid-cols-3 gap-3 xs:gap-4">
+      <div className="mt-8 grid grid-cols-3 gap-3">
 
         <Feature
-          icon={<ShieldCheck size={18} />}
+          icon={<ShieldCheck size={16} />}
           title="Secure"
         />
 
         <Feature
-          icon={<Users size={18} />}
+          icon={<Users size={16} />}
           title="Trusted"
         />
 
         <Feature
-          icon={<Target size={18} />}
+          icon={<Target size={16} />}
           title="Goals"
         />
 
       </div>
 
-      {/* Social */}
+      {/* Trust / rating row.
+          flex-wrap lets it reflow on narrow screens.
+          min-w-0 on the paragraph prevents the default flex min-content
+          width from forcing the row wider than its container.
+      */}
 
-      <div className="mt-7 flex items-center gap-3">
+      <div className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1">
 
-        <div className="text-[#D4AF37] tracking-wide">
+        <div className="shrink-0 text-[#D4AF37] tracking-wide">
 
           ★★★★★
 
         </div>
 
-        <p className="text-sm text-[#8F99A6]">
+        <p className="min-w-0 text-sm text-[#8F99A6]">
 
           Trusted by thousands building wealth together.
 
@@ -123,15 +143,15 @@ function Feature({
   title,
 }: FeatureProps) {
   return (
-    <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-3 sm:p-4 transition duration-300 hover:border-[#16C47F]/40 hover:-translate-y-1">
+    <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-3 transition duration-300 hover:border-[#16C47F]/40 hover:-translate-y-1 sm:p-4">
 
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#16C47F]/15 text-[#16C47F]">
+      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#16C47F]/15 text-[#16C47F] sm:h-10 sm:w-10">
 
         {icon}
 
       </div>
 
-      <h3 className="mt-4 font-semibold text-white">
+      <h3 className="mt-3 text-sm font-semibold text-white sm:mt-4">
 
         {title}
 

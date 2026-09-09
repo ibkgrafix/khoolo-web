@@ -129,12 +129,46 @@ export default function Hero() {
               "
             />
 
-            {/* Dashboard */}
+            {/* Dashboard
+                Root cause: DashboardMockup has a fixed 620×420px layout
+                designed for desktop. CSS scale() does not reduce the layout
+                box — only the visual output. So the 620px box bleeds outside
+                the right panel on mobile.
 
-            <div className="relative z-20 w-full overflow-hidden lg:w-auto lg:overflow-visible">
+                Fix (two-level wrapper):
+                - Outer div: layout dimensions = scaled visual output size
+                  (620×scale, 420×scale). overflow-hidden contains any residual
+                  bleed. mx-auto centres it in the flex panel.
+                - Inner div: carries the scale transform and origin only.
+                  Its layout box (620px) overflows the outer but is clipped
+                  by outer's overflow-hidden — after the scale the visual
+                  fits exactly within the outer dimensions.
+
+                On lg+ the outer reverts to w-auto/h-auto/overflow-visible
+                and the inner uses origin-right for the desktop right-aligned
+                layout. No desktop behaviour is changed.
+            */}
+            <div
+              className="
+                relative
+                z-20
+                mx-auto
+                h-[244px]
+                w-[360px]
+                overflow-hidden
+                sm:h-[302px]
+                sm:w-[447px]
+                md:h-[353px]
+                md:w-[521px]
+                lg:mx-0
+                lg:h-auto
+                lg:w-auto
+                lg:overflow-visible
+              "
+            >
               <div
                 className="
-                  origin-center
+                  origin-top-left
                   scale-[0.58]
                   sm:scale-[0.72]
                   md:scale-[0.84]
@@ -148,13 +182,13 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Floating members — kept directly inside original parent */}
+            {/* Floating members — only shown sm+ */}
 
             <div className="hidden sm:block">
               <FloatingAvatars />
             </div>
 
-            {/* Contribution card */}
+            {/* Contribution card — only shown lg+ */}
 
             <div
               className="
