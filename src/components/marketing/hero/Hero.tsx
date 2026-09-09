@@ -184,10 +184,12 @@ export default function Hero() {
             >
               <div
                 className="
-                  origin-top
+                  w-full
+                  origin-top-left
                   scale-[0.58]
                   sm:scale-[0.72]
                   md:scale-[0.84]
+                  lg:w-auto
                   lg:origin-right
                   lg:scale-[0.82]
                   xl:scale-[0.92]
