@@ -11,16 +11,24 @@ export default function Hero() {
       <Background />
 
       <Container>
+        {/*
+          Hero grid.
+          Single column on mobile — content stacks above dashboard.
+          Two columns from lg+.
+
+          gap/padding tightened on mobile vs desktop so there's no
+          excessive dead space between content and dashboard preview.
+        */}
         <div
           className="
             grid
             min-h-[calc(100svh-68px)]
             items-center
             gap-8
-            pb-14
-            pt-12
-            sm:gap-10
+            pb-12
+            pt-10
             sm:min-h-[calc(100svh-72px)]
+            sm:gap-10
             sm:pb-16
             sm:pt-14
             lg:min-h-[calc(100svh-72px)]
@@ -31,24 +39,25 @@ export default function Hero() {
             xl:gap-8
           "
         >
-          {/* Left — hero text content */}
+          {/* ── Left: hero text content ─────────────────────────────── */}
           <div className="relative z-20 mx-auto w-full max-w-[620px] lg:mx-0 lg:-mt-8">
             <HeroContent />
           </div>
 
-          {/* Right — dashboard visual
-              On mobile/tablet this is a plain block that sizes itself to its
-              content — no fixed height, no flex centering that creates dead
-              vertical space. The dashboard scales down to fit.
-              On lg+ it becomes a flex panel with height/justify-end restored
-              for the original desktop two-column layout.
-          */}
+          {/* ── Right: dashboard visual ──────────────────────────────
+            On mobile / tablet this is a plain block — no fixed height,
+            no flex vertical centering that creates dead empty space.
+            The dashboard wrapper sizes itself and the section just flows.
+
+            On lg+ it becomes a positioned flex panel with the original
+            desktop height and right-alignment.
+          ─────────────────────────────────────────────────────────── */}
           <div
             className="
               relative
               mx-auto
               w-full
-              max-w-[500px]
+              max-w-[560px]
               lg:flex
               lg:h-[610px]
               lg:max-w-none
@@ -57,20 +66,20 @@ export default function Hero() {
               xl:h-[660px]
             "
           >
-            {/* Decorative glow — pointer-events-none, safe to overflow section */}
+            {/* Decorative glow — purely visual, pointer-events-none */}
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[320px]
-                w-[320px]
+                h-[300px]
+                w-[300px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 bg-[#16C47F]/10
-                blur-[95px]
+                blur-[90px]
                 sm:h-[460px]
                 sm:w-[460px]
                 sm:blur-[120px]
@@ -83,15 +92,15 @@ export default function Hero() {
               "
             />
 
-            {/* Orbit rings */}
+            {/* Orbit ring 1 */}
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[290px]
-                w-[290px]
+                h-[270px]
+                w-[270px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
@@ -105,20 +114,22 @@ export default function Hero() {
                 xl:w-[650px]
               "
             />
+
+            {/* Orbit ring 2 */}
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[220px]
-                w-[220px]
+                h-[200px]
+                w-[200px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 border border-[#16C47F]/10
-                sm:h-[330px]
-                sm:w-[330px]
+                sm:h-[320px]
+                sm:w-[320px]
                 lg:left-[54%]
                 lg:h-[440px]
                 lg:w-[440px]
@@ -127,19 +138,40 @@ export default function Hero() {
               "
             />
 
-            {/* Dashboard mockup
-                Two-level scale wrapper pattern:
-                - Outer sets the layout box = visual (scaled) size so the
-                  620px mockup never contributes to document scroll width.
-                  overflow-hidden clips only the mathematical bleed of the
-                  scale transform — not design content.
-                - Inner carries the scale transform and origin only.
+            {/*
+              ── Dashboard mockup scale wrapper ──────────────────────
 
-                Breakpoint sizes  (620 × scale, 420 × scale):
-                  default : 0.58 → 360 × 244
-                  sm 640  : 0.72 → 447 × 302
-                  md 768  : 0.84 → 521 × 353
-                  lg 1024 : desktop layout restored (w-auto, h-auto)
+              ROOT CAUSE of previous mobile overflow:
+              The outer wrapper had a fixed pixel width (w-[360px]) that
+              exceeded the container at viewports narrower than ~400px,
+              causing the element to bleed outside the section's right edge.
+
+              FIX — two-level pattern, outer is w-full:
+
+              OUTER div  (clips the layout box)
+              ├─ w-full  → always matches the container, never overflows
+              ├─ h-[Npx] → set to 420 × scale so only the correctly-scaled
+              │             visual height is occupied; no dead space below
+              └─ overflow-hidden → clips the inner's layout bleed so neither
+                                   the 620px width NOR the 420px height of
+                                   DashboardMockup contributes to scroll width
+
+              INNER div  (scale transform only, no sizing)
+              └─ scale-[N] origin-top-left → shrinks the 620×420 mockup
+                 from its top-left corner. The visible portion is the left
+                 side of the dashboard (header, savings amount, KPIs —
+                 the most important content). The outer clips any bleed.
+
+              Scale values and resulting outer heights (420 × scale):
+                default (< 640px) : scale 0.58 → h ≈ 244px
+                sm    (≥ 640px)   : scale 0.72 → h ≈ 302px
+                md    (≥ 768px)   : scale 0.84 → h ≈ 353px
+                lg    (≥ 1024px)  : w-auto, h-auto, overflow-visible
+                                    → desktop layout fully restored,
+                                       origin-right for right-alignment
+
+              At lg+ the outer reverts to w-auto / h-auto so it doesn't
+              constrain the desktop layout in any way.
             */}
             <div
               className="
@@ -147,12 +179,10 @@ export default function Hero() {
                 z-20
                 mx-auto
                 h-[244px]
-                w-[360px]
+                w-full
                 overflow-hidden
                 sm:h-[302px]
-                sm:w-[447px]
                 md:h-[353px]
-                md:w-[521px]
                 lg:mx-0
                 lg:h-auto
                 lg:w-auto
@@ -175,7 +205,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Floating member avatars — sm+ only */}
+            {/* Floating member avatars — sm+ only, absolute inside right panel */}
             <div className="hidden sm:block">
               <FloatingAvatars />
             </div>
