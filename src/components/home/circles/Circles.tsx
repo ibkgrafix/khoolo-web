@@ -75,7 +75,7 @@ export default function Circles() {
         <div className="absolute right-[16%] top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full border border-[#16C47F]/10" />
       </div>
 
-      <div className="relative mx-auto grid max-w-[1280px] items-center gap-8 px-5 sm:gap-10 sm:px-6 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16 lg:px-8">
+      <div className="relative mx-auto grid grid-cols-1 max-w-[1280px] items-center gap-8 px-5 sm:gap-10 sm:px-6 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16 lg:px-8">
         {/* Left Content */}
         <div>
           <span className="inline-flex items-center rounded-full border border-[#16C47F]/25 bg-[#16C47F]/10 px-5 py-2 text-[10px] font-extrabold uppercase tracking-[0.28em] text-[#25D697]">
@@ -159,7 +159,7 @@ export default function Circles() {
             </div>
 
             {/* Summary */}
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
               <div className="rounded-[17px] border border-white/[0.07] bg-white/[0.045] p-4">
                 <p className="text-[9px] uppercase tracking-[0.18em] text-slate-500">
                   Contribution

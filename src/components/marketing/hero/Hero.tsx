@@ -20,6 +20,7 @@ export default function Hero() {
         <div
           className="
             grid
+            grid-cols-1
             min-h-[calc(100svh-68px)]
             items-center
             gap-6

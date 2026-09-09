@@ -41,7 +41,7 @@ export default function TrustCard() {
 
       <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-[#16C47F]/[0.08] blur-[100px]" />
 
-      <div className="relative grid gap-9 p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12 lg:p-10">
+      <div className="relative grid grid-cols-1 gap-9 p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12 lg:p-10">
         {/* Left */}
         <div>
           <span className="inline-flex w-fit items-center rounded-full border border-[#16C47F]/20 bg-[#16C47F]/10 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#22D494]">
@@ -74,7 +74,7 @@ export default function TrustCard() {
         </div>
 
         {/* Right */}
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {items.map(({ icon: Icon, title, description }) => (
             <div
               key={title}

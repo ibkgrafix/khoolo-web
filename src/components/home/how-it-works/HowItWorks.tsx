@@ -294,7 +294,7 @@ export default function HowItWorks() {
 
         {/* Cards */}
 
-        <div className="mx-auto mt-8 grid max-w-[1160px] items-stretch gap-4 sm:mt-10 sm:gap-5 lg:grid-cols-2">
+        <div className="mx-auto mt-8 grid grid-cols-1 max-w-[1160px] items-stretch gap-4 sm:mt-10 sm:gap-5 lg:grid-cols-2">
           <CreateCircleCard />
           <InviteCard />
           <ContributeCard />

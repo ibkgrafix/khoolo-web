@@ -38,7 +38,7 @@ export default function FeatureBar() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(22,196,127,0.07),transparent_65%)]" />
 
       {/* Features */}
-      <div className="relative grid divide-y divide-white/[0.07] sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-5">
+      <div className="relative grid grid-cols-1 divide-y divide-white/[0.07] sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-5">
         {features.map(({ icon: Icon, label }, index) => (
           <div
             key={label}
@@ -57,10 +57,9 @@ export default function FeatureBar() {
               sm:justify-center
               sm:text-center
               lg:min-h-[124px]
-              ${
-                index === 2
-                  ? "sm:col-span-2 lg:col-span-1"
-                  : ""
+              ${index === 2
+                ? "sm:col-span-2 lg:col-span-1"
+                : ""
               }
             `}
           >

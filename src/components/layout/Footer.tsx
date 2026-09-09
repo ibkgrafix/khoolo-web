@@ -147,7 +147,7 @@ export default function Footer() {
 
         {/* Main footer */}
 
-        <div className="grid gap-14 py-16 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.65fr_0.65fr_0.65fr] lg:gap-12 lg:py-20">
+        <div className="grid grid-cols-1 gap-14 py-16 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.65fr_0.65fr_0.65fr] lg:gap-12 lg:py-20">
           {/* Brand */}
 
           <div className="max-w-sm">

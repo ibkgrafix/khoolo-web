@@ -83,7 +83,7 @@ export default function Goals() {
         </div>
 
         {/* Goal Cards */}
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
           {goals.map(
             ({
               icon: Icon,
