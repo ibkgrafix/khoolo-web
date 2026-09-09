@@ -4,34 +4,37 @@ import { Badge, Button } from "@/components/ui";
 export default function HeroContent() {
   return (
     /*
-      ROOT CAUSE FIX — mobile alignment:
-      On mobile the hero is a single-column layout. The design intent
-      (per the spec) is a centered vertical composition on mobile.
-      Previously there was no text-center for mobile — everything
-      defaulted to left-aligned, matching the desktop two-column layout.
-
-      Fix: text-center on mobile, lg:text-left on desktop.
-      This single rule centers the heading, paragraph, and badge
-      through CSS text-align inheritance without touching each child.
-
-      Buttons, feature cards, and the trust row each get mx-auto
-      (or justify-center) on mobile so they center within the content
-      box without needing individual element overrides.
+      text-center on mobile → lg:text-left for desktop.
+      Every child inherits the centered alignment on mobile
+      without needing individual overrides on heading/paragraph/badge.
     */
     <div className="relative z-10 w-full max-w-[590px] text-center lg:text-left">
 
-      {/* Badge — centers via inline-flex + text-center parent */}
+      {/* Badge */}
       <Badge className="mb-5 px-4 py-1.5 text-[11px] font-medium">
         Trusted Digital Contribution Platform
       </Badge>
 
       {/*
-        Heading.
-        text-[46px] at mobile safely fits "Your Circle." in 272px+
-        containers (320px viewport − 48px padding = 272px available).
-        Scales up aggressively for desktop impact.
+        Heading — responsive sizing that genuinely fits every mobile width.
+
+        Root cause of previous overflow:
+        "Your Circle." at Inter Black is approximately 0.58× the font size
+        per character. At text-[46px] that's ~320px for 12 chars — wider
+        than the 272px available at 320px viewport (320 - 48px padding).
+
+        Fix: step sizes anchored to actual available container width:
+          320px viewport  → 272px container → text-[34px] → ~237px ✓
+          375px viewport  → 327px container → text-[44px] → ~306px ✓
+          430px viewport  → 382px container → text-[52px] → ~363px ✓
+          640px (sm)      → wide enough     → text-[62px]
+          768px (md)      → desktop lead-in → text-[72px]
+          1024px (lg)     → desktop         → text-[82px]
+          1280px (xl)     → full desktop    → text-[96px]
+
+        Tailwind v4 supports arbitrary min-width variants inline.
       */}
-      <h1 className="mt-1 text-[46px] font-black leading-[0.92] tracking-[-0.04em] text-white sm:text-[58px] md:text-[72px] lg:text-[82px] xl:text-[96px]">
+      <h1 className="mt-1 text-[34px] font-black leading-[0.92] tracking-[-0.04em] text-white min-[375px]:text-[44px] min-[430px]:text-[52px] sm:text-[62px] md:text-[72px] lg:text-[82px] xl:text-[96px]">
         <span className="block">Your Circle.</span>
         <span className="block">
           Your{" "}
@@ -43,8 +46,8 @@ export default function HeroContent() {
 
       {/*
         Description.
-        w-full + max-w-[470px] mx-auto on mobile centers the text block
-        and prevents it from stretching edge-to-edge on wider mobiles.
+        Block element fills parent naturally. max-w-[470px] is a desktop
+        ceiling only. mx-auto centers the text block on mobile;
         lg:mx-0 restores left-alignment on desktop.
       */}
       <p className="mx-auto mt-5 w-full max-w-[470px] text-[15px] leading-[1.7] text-[#A7B1BC] sm:text-base sm:leading-8 lg:mx-0">
@@ -54,16 +57,13 @@ export default function HeroContent() {
 
       {/*
         CTA Buttons.
-        flex-col on mobile stacks them cleanly. mx-auto centers the
-        column. sm:flex-row at sm+ restores side-by-side layout.
-        !important overrides are needed because Button's base class
-        has hardcoded px-8/h-14; in Tailwind v4 stylesheet-order
-        specificity means plain overrides lose to the base class.
+        flex-col on mobile → each button gets full container width.
+        sm:flex-row at 640px+ restores side-by-side layout.
+        ! prefix overrides Button base class (px-8, h-14) which wins
+        over plain overrides in Tailwind v4 due to stylesheet order.
       */}
       <div className="mx-auto mt-7 flex w-full flex-col gap-3 sm:mx-0 sm:flex-row sm:gap-4 lg:mx-0">
-        <Button
-          className="!h-12 !w-full !rounded-2xl !px-6 !text-[15px] sm:!h-14 sm:!w-auto sm:!px-8 sm:!text-base"
-        >
+        <Button className="!h-12 !w-full !rounded-2xl !px-6 !text-[15px] sm:!h-14 sm:!w-auto sm:!px-8 sm:!text-base">
           Start Saving
         </Button>
         <Button
@@ -77,10 +77,9 @@ export default function HeroContent() {
 
       {/*
         Feature cards — 3-column grid.
-        mx-auto centers the grid on mobile.
-        At 320px (272px available): (272 − 2×12) / 3 = 83px per card — fits.
-        At 375px (327px available): (327 − 2×12) / 3 = 101px per card — fits.
-        lg:mx-0 restores left-alignment on desktop.
+        Each column = (containerWidth − 2×gap) / 3.
+        At 272px: (272 − 24) / 3 = 83px per card — compact but fits.
+        mx-auto centers the grid; lg:mx-0 restores desktop alignment.
       */}
       <div className="mx-auto mt-6 grid w-full grid-cols-3 gap-3 lg:mx-0">
         <Feature icon={<ShieldCheck size={16} />} title="Secure" />
@@ -90,9 +89,10 @@ export default function HeroContent() {
 
       {/*
         Trust / rating row.
-        justify-center on mobile. flex-wrap + min-w-0 + shrink on the
-        text element prevent the row from exceeding the container.
-        lg:justify-start restores left-alignment on desktop.
+        flex-wrap allows stars + text to reflow to two lines if needed.
+        min-w-0 + shrink on the <p> prevents flex min-content sizing
+        from forcing the row wider than the container.
+        justify-center on mobile, lg:justify-start on desktop.
       */}
       <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 lg:justify-start">
         <span className="shrink-0 text-[#D4AF37] tracking-wide">★★★★★</span>

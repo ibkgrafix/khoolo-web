@@ -225,14 +225,14 @@ export default function Security() {
             Security first
           </span>
 
-          <h2 className="mt-6 max-w-[570px] text-[42px] font-black leading-[0.98] tracking-[-0.055em] text-white sm:text-[50px] lg:text-[58px]">
+          <h2 className="mt-6 max-w-[570px] text-[32px] font-black leading-[0.98] tracking-[-0.055em] text-white min-[375px]:text-[36px] min-[430px]:text-[42px] sm:text-[50px] lg:text-[58px]">
             Built to protect
             <br />
             every{" "}
             <span className="text-[#16C47F]">contribution.</span>
           </h2>
 
-          <p className="mt-6 max-w-[540px] text-[15px] leading-7 text-slate-400 lg:text-base">
+          <p className="mt-6 w-full max-w-[540px] text-[15px] leading-7 text-slate-400 lg:text-base">
             KHOOLO keeps circle access controlled, payment activity visible and
             every contribution record easy to verify.
           </p>
@@ -241,7 +241,7 @@ export default function Security() {
             {protections.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="flex max-w-[540px] items-start gap-4"
+                className="flex w-full max-w-[540px] items-start gap-4"
               >
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] border border-[#16C47F]/15 bg-[#16C47F]/10">
                   <Icon
