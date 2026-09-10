@@ -148,8 +148,8 @@ export default function Hero() {
                 xl  0.52  →  322px  →  h-[198px]
                2xl  0.55  →  341px  →  h-[209px]
 
-              FloatingAvatars are children of the outer wrapper so they
-              position relative to the card's visual boundary.
+              FloatingAvatars are SIBLINGS of this wrapper (not children)
+              so they are never clipped by overflow-hidden.
             */}
             <div
               className="
@@ -178,9 +178,18 @@ export default function Hero() {
               >
                 <DashboardMockup />
               </div>
+            </div>
 
-              {/* Floating avatars — inside wrapper so they're
-                  positioned relative to the card boundary */}
+            {/*
+              FloatingAvatars — sibling of the scale wrapper, child of
+              the visual panel (which is relative, no overflow-hidden).
+              Absolute positioning with -left-4/-top-4 and -bottom-4/
+              -right-4 is relative to this panel, which is exactly the
+              card's bounding box on desktop — so avatars land precisely
+              at the card's top-left and bottom-right corners, fully
+              unclipped.
+            */}
+            <div className="hidden lg:block">
               <FloatingAvatars />
             </div>
           </div>
