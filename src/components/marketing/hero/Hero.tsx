@@ -2,6 +2,7 @@ import { Container } from "@/components/ui";
 import Background from "./Background";
 import HeroContent from "./HeroContent";
 import DashboardMockup from "./DashboardMockup";
+import MobileDashboard from "./MobileDashboard";
 import FloatingAvatars from "./FloatingAvatars";
 import ContributionCard from "./ContributionCard";
 
@@ -11,25 +12,19 @@ export default function Hero() {
       <Background />
 
       <Container>
-        {/*
-          Single-column on mobile, two-column at lg+.
-          gap-6 on mobile keeps content and dashboard close together.
-          min-h fills the viewport minus navbar height so the hero
-          looks full-screen on every device.
-        */}
         <div
           className="
             grid
             grid-cols-1
             min-h-[calc(100svh-68px)]
             items-center
-            gap-6
-            pb-12
+            gap-8
+            pb-14
             pt-10
             sm:min-h-[calc(100svh-72px)]
-            sm:gap-8
+            sm:gap-10
             sm:pb-16
-            sm:pt-14
+            sm:pt-12
             lg:min-h-[calc(100svh-72px)]
             lg:grid-cols-[1fr_1.08fr]
             lg:gap-6
@@ -43,48 +38,43 @@ export default function Hero() {
             <HeroContent />
           </div>
 
-          {/* ── Right: dashboard visual ──
-              Mobile/tablet: plain block, no fixed height.
-              Dashboard wrapper is w-full + mx-auto so it fills and
-              centers within the available container width.
-              lg+: flex panel with height and right-alignment restored.
-          -->*/}
+          {/* ── Right: visual panel ── */}
           <div
             className="
               relative
               mx-auto
               w-full
-              max-w-[560px]
+              max-w-[480px]
               lg:flex
-              lg:h-[610px]
+              lg:h-[574px]
               lg:max-w-none
               lg:items-center
               lg:justify-end
-              xl:h-[660px]
+              xl:h-[644px]
             "
           >
-            {/* Decorative glow */}
+            {/* Decorative glow — all breakpoints */}
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[300px]
-                w-[300px]
+                h-[280px]
+                w-[280px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 bg-[#16C47F]/10
-                blur-[90px]
-                sm:h-[460px]
-                sm:w-[460px]
-                sm:blur-[120px]
+                blur-[80px]
+                sm:h-[400px]
+                sm:w-[400px]
                 lg:left-[54%]
-                lg:h-[620px]
-                lg:w-[620px]
-                xl:h-[720px]
-                xl:w-[720px]
+                lg:h-[580px]
+                lg:w-[580px]
+                lg:blur-[120px]
+                xl:h-[680px]
+                xl:w-[680px]
                 xl:blur-[140px]
               "
             />
@@ -96,19 +86,19 @@ export default function Hero() {
                 absolute
                 left-1/2
                 top-1/2
-                h-[270px]
-                w-[270px]
+                h-[250px]
+                w-[250px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 border border-white/[0.05]
-                sm:h-[420px]
-                sm:w-[420px]
+                sm:h-[380px]
+                sm:w-[380px]
                 lg:left-[54%]
-                lg:h-[560px]
-                lg:w-[560px]
-                xl:h-[650px]
-                xl:w-[650px]
+                lg:h-[520px]
+                lg:w-[520px]
+                xl:h-[610px]
+                xl:w-[610px]
               "
             />
 
@@ -119,90 +109,74 @@ export default function Hero() {
                 absolute
                 left-1/2
                 top-1/2
-                h-[200px]
-                w-[200px]
+                h-[180px]
+                w-[180px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 border border-[#16C47F]/10
-                sm:h-[320px]
-                sm:w-[320px]
+                sm:h-[290px]
+                sm:w-[290px]
                 lg:left-[54%]
-                lg:h-[440px]
-                lg:w-[440px]
-                xl:h-[510px]
-                xl:w-[510px]
+                lg:h-[400px]
+                lg:w-[400px]
+                xl:h-[470px]
+                xl:w-[470px]
               "
             />
 
             {/*
-              Dashboard scale wrapper — two-level pattern.
+              ── MOBILE / TABLET: dedicated MobileDashboard ──
+              Shown on <lg. Full-width, native type scale — no transform.
+              Hidden at lg+ where the desktop DashboardMockup takes over.
+            */}
+            <div className="relative z-20 w-full lg:hidden">
+              <MobileDashboard />
+            </div>
 
-              ROOT CAUSE that was fixed:
-              DashboardMockup is a fixed 620×420px element designed for
-              desktop. CSS scale() does not shrink the layout box — the
-              element still occupies its full 620px in document flow,
-              causing horizontal overflow on every viewport < 620px.
+            {/*
+              ── DESKTOP (lg+): scaled DashboardMockup ──
+              Hidden on mobile. Scale wrapper outer sets the layout-box
+              height to 700px × scale so the grid track never exceeds it.
+              w-full on the inner div prevents DashboardMockup's fixed
+              620px from leaking to document.scrollWidth.
 
-              FIX:
-              OUTER div:
-                - w-full  → always matches the container, never overflows
-                - h-[Npx] → 420 × scale, clips the layout-box height too
-                - overflow-hidden → contains the inner's layout bleed
-                - mx-auto  → centers the wrapper in the right panel
-              INNER div:
-                - scale-[N] origin-top → scales from the horizontal center
-                  of the element's top edge, so the visual content is
-                  centered within the outer wrapper width
-                - No width — fills outer via block behavior
-
-              On lg+ the outer becomes w-auto/h-auto/overflow-visible
-              and the inner switches to origin-right for the desktop
-              right-aligned two-column composition. Nothing changes
-              on desktop.
-
-              Scale → outer height (420 × scale):
-                default (<640px)  : 0.58 → 244px
-                sm (640–767px)    : 0.72 → 302px
-                md (768–1023px)   : 0.84 → 353px
-                lg+ (≥1024px)     : desktop — w/h auto, overflow visible
+              Source height after clipping fix: ~700px.
+              lg  scale 0.82 → outer h = 700 × 0.82 = 574px  (matches lg:h-[574px] on panel)
+              xl  scale 0.92 → outer h = 700 × 0.92 = 644px  (matches xl:h-[644px] on panel)
+              2xl scale 1.00 → outer h = 700px
             */}
             <div
               className="
                 relative
                 z-20
-                mx-auto
-                h-[244px]
-                w-full
-                overflow-hidden
-                sm:h-[302px]
-                md:h-[353px]
-                lg:mx-0
-                lg:h-auto
-                lg:w-auto
-                lg:overflow-visible
+                mx-0
+                hidden
+                lg:block
+                lg:h-[574px]
+                lg:w-full
+                lg:overflow-hidden
+                xl:h-[644px]
+                2xl:h-[700px]
+                2xl:overflow-visible
               "
             >
               <div
                 className="
                   w-full
                   origin-top-left
-                  scale-[0.58]
-                  sm:scale-[0.72]
-                  md:scale-[0.84]
-                  lg:w-auto
-                  lg:origin-right
                   lg:scale-[0.82]
                   xl:scale-[0.92]
                   2xl:scale-100
+                  lg:origin-right
                 "
               >
                 <DashboardMockup />
               </div>
             </div>
 
-            {/* Floating avatars — sm+ only */}
-            <div className="hidden sm:block">
+            {/* Floating member avatars — sm+ only, desktop panel only */}
+            <div className="hidden lg:block">
               <FloatingAvatars />
             </div>
 
