@@ -8,7 +8,7 @@ export default function HeroContent() {
       Inherits to all inline/block children so badge, heading,
       paragraph and trust row all center without per-child overrides.
     */
-    <div className="relative z-10 w-full max-w-[590px] text-center lg:text-left">
+    <div className="relative z-10 w-full max-w-[590px] text-center lg:max-w-[720px] lg:text-left xl:max-w-[840px]">
 
       {/* Badge */}
       <Badge className="mb-5 px-4 py-1.5 text-[11px] font-medium">

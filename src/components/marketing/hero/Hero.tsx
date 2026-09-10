@@ -4,7 +4,6 @@ import HeroContent from "./HeroContent";
 import DashboardMockup from "./DashboardMockup";
 import MobileDashboard from "./MobileDashboard";
 import FloatingAvatars from "./FloatingAvatars";
-import ContributionCard from "./ContributionCard";
 
 export default function Hero() {
   return (
@@ -26,34 +25,39 @@ export default function Hero() {
             sm:pb-16
             sm:pt-12
             lg:min-h-[calc(100svh-72px)]
-            lg:grid-cols-[1fr_1.08fr]
-            lg:gap-6
+            lg:grid-cols-[1fr_auto]
+            lg:gap-10
             lg:py-10
             xl:min-h-[calc(100svh-76px)]
-            xl:gap-8
+            xl:gap-14
           "
         >
-          {/* ── Left: hero text content ── */}
-          <div className="relative z-20 mx-auto w-full max-w-[620px] lg:mx-0 lg:-mt-8">
+          {/* ── Left: hero text content ──
+              lg:max-w-none lets the column grow to fill its grid track
+              so HeroContent's own lg:max-w-[720px] xl:max-w-[840px]
+              becomes the controlling ceiling (not this wrapper).
+          */}
+          <div className="relative z-20 mx-auto w-full max-w-[620px] lg:mx-0 lg:max-w-none lg:-mt-4">
             <HeroContent />
           </div>
 
-          {/* ── Right: visual panel ── */}
+          {/* ── Right: visual panel ──
+              Mobile/tablet (<lg): MobileDashboard, full width.
+              Desktop (lg+): compact DashboardMockup, scaled to ~300–340px
+              rendered width. Panel is auto-width so it hugs the card.
+          */}
           <div
             className="
               relative
               mx-auto
               w-full
               max-w-[480px]
-              lg:flex
-              lg:h-[574px]
-              lg:max-w-none
-              lg:items-center
-              lg:justify-end
-              xl:h-[644px]
+              lg:mx-0
+              lg:w-auto
+              lg:self-center
             "
           >
-            {/* Decorative glow — all breakpoints */}
+            {/* ── Decorative glow (unchanged) ── */}
             <div
               className="
                 pointer-events-none
@@ -70,16 +74,16 @@ export default function Hero() {
                 sm:h-[400px]
                 sm:w-[400px]
                 lg:left-[54%]
-                lg:h-[580px]
-                lg:w-[580px]
+                lg:h-[480px]
+                lg:w-[480px]
                 lg:blur-[120px]
-                xl:h-[680px]
-                xl:w-[680px]
+                xl:h-[560px]
+                xl:w-[560px]
                 xl:blur-[140px]
               "
             />
 
-            {/* Orbit ring 1 */}
+            {/* ── Orbit ring 1 (unchanged) ── */}
             <div
               className="
                 pointer-events-none
@@ -95,14 +99,14 @@ export default function Hero() {
                 sm:h-[380px]
                 sm:w-[380px]
                 lg:left-[54%]
-                lg:h-[520px]
-                lg:w-[520px]
-                xl:h-[610px]
-                xl:w-[610px]
+                lg:h-[420px]
+                lg:w-[420px]
+                xl:h-[490px]
+                xl:w-[490px]
               "
             />
 
-            {/* Orbit ring 2 */}
+            {/* ── Orbit ring 2 (unchanged) ── */}
             <div
               className="
                 pointer-events-none
@@ -118,86 +122,66 @@ export default function Hero() {
                 sm:h-[290px]
                 sm:w-[290px]
                 lg:left-[54%]
-                lg:h-[400px]
-                lg:w-[400px]
-                xl:h-[470px]
-                xl:w-[470px]
+                lg:h-[320px]
+                lg:w-[320px]
+                xl:h-[370px]
+                xl:w-[370px]
               "
             />
 
-            {/*
-              ── MOBILE / TABLET: dedicated MobileDashboard ──
-              Shown on <lg. Full-width, native type scale — no transform.
-              Hidden at lg+ where the desktop DashboardMockup takes over.
-            */}
+            {/* ── MOBILE / TABLET (<lg): MobileDashboard ── */}
             <div className="relative z-20 w-full lg:hidden">
               <MobileDashboard />
             </div>
 
             {/*
-              ── DESKTOP (lg+): scaled DashboardMockup ──
-              Hidden on mobile. Scale wrapper outer sets the layout-box
-              height to 700px × scale so the grid track never exceeds it.
-              w-full on the inner div prevents DashboardMockup's fixed
-              620px from leaking to document.scrollWidth.
+              ── DESKTOP (lg+): compact scaled DashboardMockup ──
 
-              Source height after clipping fix: ~700px.
-              lg  scale 0.82 → outer h = 700 × 0.82 = 574px  (matches lg:h-[574px] on panel)
-              xl  scale 0.92 → outer h = 700 × 0.92 = 644px  (matches xl:h-[644px] on panel)
-              2xl scale 1.00 → outer h = 700px
+              Two-level wrapper — outer clips layout box to visual height,
+              inner carries the scale transform.
+
+              Source dimensions: 620px wide × ~380px tall.
+              Target rendered width: lg ~300px / xl ~320px / 2xl ~340px.
+
+              Scale  →  rendered width  →  outer height (380 × scale)
+                lg  0.48  →  298px  →  h-[182px]
+                xl  0.52  →  322px  →  h-[198px]
+               2xl  0.55  →  341px  →  h-[209px]
+
+              FloatingAvatars are children of the outer wrapper so they
+              position relative to the card's visual boundary.
             */}
             <div
               className="
                 relative
                 z-20
-                mx-0
+                mx-auto
                 hidden
                 lg:block
-                lg:h-[574px]
-                lg:w-full
+                lg:h-[182px]
+                lg:w-[298px]
                 lg:overflow-hidden
-                xl:h-[644px]
-                2xl:h-[700px]
-                2xl:overflow-visible
+                xl:h-[198px]
+                xl:w-[322px]
+                2xl:h-[209px]
+                2xl:w-[341px]
               "
             >
+              {/* Scale inner */}
               <div
                 className="
-                  w-full
                   origin-top-left
-                  lg:scale-[0.82]
-                  xl:scale-[0.92]
-                  2xl:scale-100
-                  lg:origin-right
+                  lg:scale-[0.48]
+                  xl:scale-[0.52]
+                  2xl:scale-[0.55]
                 "
               >
                 <DashboardMockup />
               </div>
-            </div>
 
-            {/* Floating member avatars — sm+ only, desktop panel only */}
-            <div className="hidden lg:block">
+              {/* Floating avatars — inside wrapper so they're
+                  positioned relative to the card boundary */}
               <FloatingAvatars />
-            </div>
-
-            {/* Contribution card — lg+ only */}
-            <div
-              className="
-                absolute
-                right-0
-                top-8
-                z-30
-                hidden
-                origin-top-right
-                scale-[0.72]
-                lg:block
-                xl:top-6
-                xl:scale-[0.86]
-                2xl:top-8
-                2xl:scale-100
-              "
-            >
-              <ContributionCard />
             </div>
           </div>
         </div>
