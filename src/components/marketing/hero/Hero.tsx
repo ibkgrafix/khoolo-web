@@ -1,9 +1,25 @@
 import { Container } from "@/components/ui";
 import Background from "./Background";
 import HeroContent from "./HeroContent";
-import DashboardMockup from "./DashboardMockup";
-import MobileDashboard from "./MobileDashboard";
+import HeroIllustration from "./HeroIllustration";
+import MobileHeroIllustration from "./MobileHeroIllustration";
 
+/*
+  Hero.tsx — VAUHLT hero section.
+
+  Desktop (lg+): two-column grid — text left, illustration right.
+  Mobile/tablet (<lg): single column, text above illustration.
+
+  Visual panel (right column on desktop):
+  - Ambient glow: soft green blur behind the composition
+  - Orbit rings: two subtle circular border rings as backdrop
+  - HeroIllustration / MobileHeroIllustration: the new SVG illustration
+
+  The old scale-transform hack (fixed px source + overflow-hidden wrapper
+  sized to scale × source height) is gone — the SVG illustration sizes
+  naturally via its viewBox and a max-width constraint, so no transform
+  wrapper is needed.
+*/
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#080A0C]">
@@ -16,47 +32,42 @@ export default function Hero() {
             grid-cols-1
             min-h-[calc(100svh-68px)]
             items-center
-            gap-8
+            gap-10
             pb-14
             pt-10
             sm:min-h-[calc(100svh-72px)]
-            sm:gap-10
+            sm:gap-12
             sm:pb-16
             sm:pt-12
             lg:min-h-[calc(100svh-72px)]
             lg:grid-cols-[1fr_auto]
-            lg:gap-10
+            lg:gap-14
             lg:py-10
             xl:min-h-[calc(100svh-76px)]
-            xl:gap-14
+            xl:gap-16
           "
         >
-          {/* ── Left: hero text content ──
-              lg:max-w-none lets the column grow to fill its grid track
-              so HeroContent's own lg:max-w-[720px] xl:max-w-[840px]
-              becomes the controlling ceiling (not this wrapper).
-          */}
+          {/* ── Left: hero text ── */}
           <div className="relative z-20 mx-auto w-full max-w-[620px] lg:mx-0 lg:max-w-none lg:-mt-4">
             <HeroContent />
           </div>
 
-          {/* ── Right: visual panel ──
-              Mobile/tablet (<lg): MobileDashboard, full width.
-              Desktop (lg+): compact DashboardMockup, scaled to ~300–340px
-              rendered width. Panel is auto-width so it hugs the card.
-          */}
+          {/* ── Right: visual panel ── */}
           <div
             className="
               relative
               mx-auto
+              flex
+              items-center
+              justify-center
               w-full
-              max-w-[480px]
+              max-w-[340px]
               lg:mx-0
-              lg:w-auto
-              lg:self-center
+              lg:max-w-[420px]
+              xl:max-w-[480px]
             "
           >
-            {/* ── Decorative glow (unchanged) ── */}
+            {/* Ambient glow — kept exactly as before */}
             <div
               className="
                 pointer-events-none
@@ -70,34 +81,32 @@ export default function Hero() {
                 rounded-full
                 bg-[#16C47F]/10
                 blur-[80px]
-                sm:h-[400px]
-                sm:w-[400px]
-                lg:left-[54%]
-                lg:h-[480px]
-                lg:w-[480px]
-                lg:blur-[120px]
-                xl:h-[560px]
-                xl:w-[560px]
-                xl:blur-[140px]
+                sm:h-[380px]
+                sm:w-[380px]
+                lg:h-[460px]
+                lg:w-[460px]
+                lg:blur-[110px]
+                xl:h-[540px]
+                xl:w-[540px]
+                xl:blur-[130px]
               "
             />
 
-            {/* ── Orbit ring 1 (unchanged) ── */}
+            {/* Orbit ring 1 — kept exactly as before */}
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[250px]
-                w-[250px]
+                h-[240px]
+                w-[240px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 border border-white/[0.05]
-                sm:h-[380px]
-                sm:w-[380px]
-                lg:left-[54%]
+                sm:h-[360px]
+                sm:w-[360px]
                 lg:h-[420px]
                 lg:w-[420px]
                 xl:h-[490px]
@@ -105,86 +114,37 @@ export default function Hero() {
               "
             />
 
-            {/* ── Orbit ring 2 (unchanged) ── */}
+            {/* Orbit ring 2 — kept exactly as before */}
             <div
               className="
                 pointer-events-none
                 absolute
                 left-1/2
                 top-1/2
-                h-[180px]
-                w-[180px]
+                h-[170px]
+                w-[170px]
                 -translate-x-1/2
                 -translate-y-1/2
                 rounded-full
                 border border-[#16C47F]/10
-                sm:h-[290px]
-                sm:w-[290px]
-                lg:left-[54%]
-                lg:h-[320px]
-                lg:w-[320px]
-                xl:h-[370px]
-                xl:w-[370px]
+                sm:h-[270px]
+                sm:w-[270px]
+                lg:h-[310px]
+                lg:w-[310px]
+                xl:h-[360px]
+                xl:w-[360px]
               "
             />
 
-            {/* ── MOBILE / TABLET (<lg): MobileDashboard ── */}
+            {/* ── Mobile / tablet (<lg): simplified illustration ── */}
             <div className="relative z-20 w-full lg:hidden">
-              <MobileDashboard />
+              <MobileHeroIllustration />
             </div>
 
-            {/*
-              ── DESKTOP (lg+): compact scaled DashboardMockup ──
-
-              Two-level wrapper — outer clips layout box to visual height,
-              inner carries the scale transform.
-
-              Source dimensions: 620px wide × ~380px tall.
-              Target rendered width: lg ~300px / xl ~320px / 2xl ~340px.
-
-              Scale  →  rendered width  →  outer height (380 × scale)
-                lg  0.48  →  298px  →  h-[182px]
-                xl  0.52  →  322px  →  h-[198px]
-               2xl  0.55  →  341px  →  h-[209px]
-
-              FloatingAvatars are SIBLINGS of this wrapper (not children)
-              so they are never clipped by overflow-hidden.
-            */}
-            <div
-              className="
-                relative
-                z-20
-                mx-auto
-                hidden
-                lg:block
-                lg:h-[182px]
-                lg:w-[298px]
-                lg:overflow-hidden
-                xl:h-[198px]
-                xl:w-[322px]
-                2xl:h-[209px]
-                2xl:w-[341px]
-              "
-            >
-              {/* Scale inner */}
-              <div
-                className="
-                  origin-top-left
-                  lg:scale-[0.48]
-                  xl:scale-[0.52]
-                  2xl:scale-[0.55]
-                "
-              >
-                <DashboardMockup />
-              </div>
+            {/* ── Desktop (lg+): full illustration ── */}
+            <div className="relative z-20 hidden lg:block">
+              <HeroIllustration />
             </div>
-
-            {/*
-              FloatingAvatars removed — per design direction, external
-              avatar badges read as decoration, not as product UI.
-              The member avatar stack inside DashboardMockup's Family
-              Circle card provides the same social-proof signal natively.
-            */}
           </div>
         </div>
       </Container>
