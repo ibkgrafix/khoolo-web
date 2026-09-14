@@ -47,9 +47,9 @@ export default function Navbar() {
           href="#home"
           aria-label="VAUHLT homepage"
           onClick={closeMenu}
-          className="shrink-0 font-serif text-[29px] leading-none tracking-[-0.04em] text-white transition-opacity duration-300 hover:opacity-85 sm:text-[32px] xl:text-[34px]"
+          className="shrink-0 font-bold text-[22px] leading-none tracking-[0.18em] text-white transition-opacity duration-300 hover:opacity-85 sm:text-[24px] xl:text-[26px]"
         >
-          vauhlt
+          VAUHLT
         </a>
 
         {/* Desktop navigation */}
