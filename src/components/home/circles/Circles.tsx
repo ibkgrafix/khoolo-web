@@ -38,7 +38,7 @@ const benefits = [
   {
     icon: Shuffle,
     title: "Flexible payout order",
-    description: "Choose the order manually or let KHOOLO select it fairly.",
+    description: "Choose the order manually or let VAUHLT select it fairly.",
   },
   {
     icon: WalletCards,
@@ -91,7 +91,7 @@ export default function Circles() {
 
           <p className="mt-6 w-full max-w-[540px] text-[15px] leading-7 text-slate-400 lg:text-base">
             Create a trusted contribution circle, invite people you know and
-            let KHOOLO manage payments, reminders and payouts automatically.
+            let VAUHLT manage payments, reminders and payouts automatically.
           </p>
 
           <div className="mt-8 space-y-5">

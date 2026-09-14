@@ -3,7 +3,6 @@ import Background from "./Background";
 import HeroContent from "./HeroContent";
 import DashboardMockup from "./DashboardMockup";
 import MobileDashboard from "./MobileDashboard";
-import FloatingAvatars from "./FloatingAvatars";
 
 export default function Hero() {
   return (
@@ -181,17 +180,11 @@ export default function Hero() {
             </div>
 
             {/*
-              FloatingAvatars — sibling of the scale wrapper, child of
-              the visual panel (which is relative, no overflow-hidden).
-              Absolute positioning with -left-4/-top-4 and -bottom-4/
-              -right-4 is relative to this panel, which is exactly the
-              card's bounding box on desktop — so avatars land precisely
-              at the card's top-left and bottom-right corners, fully
-              unclipped.
+              FloatingAvatars removed — per design direction, external
+              avatar badges read as decoration, not as product UI.
+              The member avatar stack inside DashboardMockup's Family
+              Circle card provides the same social-proof signal natively.
             */}
-            <div className="hidden lg:block">
-              <FloatingAvatars />
-            </div>
           </div>
         </div>
       </Container>

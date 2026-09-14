@@ -45,11 +45,11 @@ export default function Navbar() {
 
         <a
           href="#home"
-          aria-label="KHOOLO homepage"
+          aria-label="VAUHLT homepage"
           onClick={closeMenu}
           className="shrink-0 font-serif text-[29px] leading-none tracking-[-0.04em] text-white transition-opacity duration-300 hover:opacity-85 sm:text-[32px] xl:text-[34px]"
         >
-          khoolo
+          vauhlt
         </a>
 
         {/* Desktop navigation */}
@@ -110,10 +110,9 @@ export default function Navbar() {
           bg-[#080C0E]
           transition-all duration-300 ease-out
           xl:hidden
-          ${
-            menuOpen
-              ? "max-h-[620px] opacity-100"
-              : "pointer-events-none max-h-0 opacity-0"
+          ${menuOpen
+            ? "max-h-[620px] opacity-100"
+            : "pointer-events-none max-h-0 opacity-0"
           }
         `}
       >
@@ -131,10 +130,9 @@ export default function Navbar() {
                   group flex min-h-[52px] items-center justify-between
                   text-[15px] font-medium text-white/70
                   transition-colors duration-300 hover:text-white
-                  ${
-                    index !== navLinks.length - 1
-                      ? "border-b border-white/[0.06]"
-                      : ""
+                  ${index !== navLinks.length - 1
+                    ? "border-b border-white/[0.06]"
+                    : ""
                   }
                 `}
               >

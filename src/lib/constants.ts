@@ -1,5 +1,5 @@
 export const APP = {
-  name: "KHOOLO",
+  name: "VAUHLT",
 
   headline: "Your Circle. Your Future.",
 

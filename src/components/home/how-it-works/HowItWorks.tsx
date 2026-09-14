@@ -15,7 +15,7 @@ export default function HowItWorks() {
     >
       <style>
         {`
-          @keyframes khoolo-glow-one {
+          @keyframes vauhlt-glow-one {
             0%, 100% {
               transform: translate3d(0, 0, 0) scale(1);
             }
@@ -25,7 +25,7 @@ export default function HowItWorks() {
             }
           }
 
-          @keyframes khoolo-glow-two {
+          @keyframes vauhlt-glow-two {
             0%, 100% {
               transform: translate3d(0, 0, 0) scale(1);
             }
@@ -35,7 +35,7 @@ export default function HowItWorks() {
             }
           }
 
-          @keyframes khoolo-ring-one {
+          @keyframes vauhlt-ring-one {
             0%, 100% {
               transform: translateX(-50%) rotate(0deg) scale(1);
             }
@@ -45,7 +45,7 @@ export default function HowItWorks() {
             }
           }
 
-          @keyframes khoolo-ring-two {
+          @keyframes vauhlt-ring-two {
             0%, 100% {
               transform: translateX(-50%) rotate(0deg) scale(1);
             }
@@ -55,7 +55,7 @@ export default function HowItWorks() {
             }
           }
 
-          @keyframes khoolo-ring-three {
+          @keyframes vauhlt-ring-three {
             0%, 100% {
               transform: translateX(-50%) scale(1);
               opacity: 0.7;
@@ -68,7 +68,7 @@ export default function HowItWorks() {
           }
 
           @media (prefers-reduced-motion: reduce) {
-            .khoolo-background-motion {
+            .vauhlt-background-motion {
               animation: none !important;
             }
           }
@@ -92,7 +92,7 @@ export default function HowItWorks() {
 
         <div
           className="
-            khoolo-background-motion
+            vauhlt-background-motion
             absolute
             -right-56
             -top-48
@@ -112,13 +112,13 @@ export default function HowItWorks() {
           "
           style={{
             animation:
-              "khoolo-glow-one 18s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+              "vauhlt-glow-one 18s cubic-bezier(0.45, 0, 0.55, 1) infinite",
           }}
         />
 
         <div
           className="
-            khoolo-background-motion
+            vauhlt-background-motion
             absolute
             -bottom-48
             -left-52
@@ -139,7 +139,7 @@ export default function HowItWorks() {
           "
           style={{
             animation:
-              "khoolo-glow-two 21s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+              "vauhlt-glow-two 21s cubic-bezier(0.45, 0, 0.55, 1) infinite",
           }}
         />
 
@@ -147,7 +147,7 @@ export default function HowItWorks() {
 
         <div
           className="
-            khoolo-background-motion
+            vauhlt-background-motion
             absolute
             left-1/2
             top-[330px]
@@ -167,13 +167,13 @@ export default function HowItWorks() {
           "
           style={{
             animation:
-              "khoolo-ring-one 24s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+              "vauhlt-ring-one 24s cubic-bezier(0.45, 0, 0.55, 1) infinite",
           }}
         />
 
         <div
           className="
-            khoolo-background-motion
+            vauhlt-background-motion
             absolute
             left-1/2
             top-[390px]
@@ -193,13 +193,13 @@ export default function HowItWorks() {
           "
           style={{
             animation:
-              "khoolo-ring-two 28s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+              "vauhlt-ring-two 28s cubic-bezier(0.45, 0, 0.55, 1) infinite",
           }}
         />
 
         <div
           className="
-            khoolo-background-motion
+            vauhlt-background-motion
             absolute
             left-1/2
             top-[450px]
@@ -218,7 +218,7 @@ export default function HowItWorks() {
           "
           style={{
             animation:
-              "khoolo-ring-three 17s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+              "vauhlt-ring-three 17s cubic-bezier(0.45, 0, 0.55, 1) infinite",
           }}
         />
       </div>

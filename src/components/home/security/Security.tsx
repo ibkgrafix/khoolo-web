@@ -233,7 +233,7 @@ export default function Security() {
           </h2>
 
           <p className="mt-6 w-full max-w-[540px] text-[15px] leading-7 text-slate-400 lg:text-base">
-            KHOOLO keeps circle access controlled, payment activity visible and
+            VAUHLT keeps circle access controlled, payment activity visible and
             every contribution record easy to verify.
           </p>
 

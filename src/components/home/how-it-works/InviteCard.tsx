@@ -69,7 +69,7 @@ export default function InviteCard() {
               </p>
 
               <p className="mt-1 truncate text-[11px] text-white">
-                khoolo.app/invite/7GH9A
+                vauhlt.app/invite/7GH9A
               </p>
             </div>
 

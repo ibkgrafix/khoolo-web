@@ -54,7 +54,7 @@ export default function PayoutCard() {
           </h3>
 
           <p className="mt-3 min-h-[48px] max-w-[500px] text-[13px] leading-6 text-slate-400">
-            KHOOLO processes your payout and keeps every member updated with a
+            VAUHLT processes your payout and keeps every member updated with a
             clear transaction history.
           </p>
         </div>

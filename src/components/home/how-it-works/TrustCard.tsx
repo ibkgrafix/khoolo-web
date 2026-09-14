@@ -45,7 +45,7 @@ export default function TrustCard() {
         {/* Left */}
         <div>
           <span className="inline-flex w-fit items-center rounded-full border border-[#16C47F]/20 bg-[#16C47F]/10 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#22D494]">
-            Why KHOOLO?
+            Why VAUHLT?
           </span>
 
           <h3 className="mt-5 max-w-[470px] text-[34px] font-black leading-[1.03] tracking-[-0.045em] text-white sm:text-[38px]">
@@ -56,7 +56,7 @@ export default function TrustCard() {
           </h3>
 
           <p className="mt-5 max-w-[490px] text-[14px] leading-7 text-slate-400">
-            KHOOLO modernizes trusted contribution circles with clear records,
+            VAUHLT modernizes trusted contribution circles with clear records,
             secure payments and dependable payouts for every member.
           </p>
 

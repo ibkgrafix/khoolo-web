@@ -77,7 +77,7 @@ export default function Goals() {
           </h2>
 
           <p className="mx-auto mt-5 max-w-[650px] text-[15px] leading-7 text-slate-600 lg:text-base">
-            Create a personal savings goal, choose your target and let KHOOLO
+            Create a personal savings goal, choose your target and let VAUHLT
             help you stay consistent until you reach it.
           </p>
         </div>

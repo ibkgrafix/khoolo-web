@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "KHOOLO",
+  title: "VAUHLT",
   description:
     "Build trusted contribution circles, save toward life's biggest goals, and grow your money together.",
 };

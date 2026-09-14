@@ -27,7 +27,7 @@ const productLinks = [
 
 const companyLinks = [
   {
-    label: "About KHOOLO",
+    label: "About VAUHLT",
     href: "/about",
   },
   {
@@ -154,14 +154,14 @@ export default function Footer() {
             <Link
               href="#home"
               className="inline-flex items-center gap-3"
-              aria-label="KHOOLO home"
+              aria-label="VAUHLT home"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#16C47F] text-sm font-black text-[#07110D]">
-                K
+                V
               </div>
 
               <span className="text-xl font-bold tracking-[0.16em] text-white">
-                KHOOLO
+                VAUHLT
               </span>
             </Link>
 
@@ -239,7 +239,7 @@ export default function Footer() {
         {/* Bottom */}
 
         <div className="flex flex-col gap-5 border-t border-white/[0.07] pt-7 text-xs text-white/35 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} KHOOLO. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} VAUHLT. All rights reserved.</p>
 
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#16C47F] shadow-[0_0_12px_rgba(22,196,127,0.8)]" />
